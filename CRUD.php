@@ -55,16 +55,16 @@
 
         //Function to get data(all parametrized)
         //SELECT $field FROM $table where $condition $order_by_field $order_by_type $limit 
-        public function getData($table, $field = "*", $condition = array(), $order_by_field = "", $order_by_type = "DESC", $limit = ""){
+        public function getData($table, $field = "*", $conditions = array(), $order_by_field = "", $order_by_type = "DESC", $limit = ""){
 
             $query = "SELECT $field FROM $table";
 
-            if($condition != []){
+            if($conditions != []){
 
                 $query .= " WHERE ";
-                $count = count($condition);
+                $count = count($conditions);
                 $i = 0;
-                foreach($condition as $k=>$v){
+                foreach($conditions as $k=>$v){
 
                     if($count-1 != $i){
                         $query .= "$k='$v' and ";
@@ -89,16 +89,16 @@
 
         //function to delete data
         //DELETE FROM $table WHERE $condition
-        public function deleteData($table, $condition = array()){
+        public function deleteData($table, $conditions = array()){
 
             $query = "DELETE FROM $table";
             
-            if($condition != []){
+            if($conditions != []){
 
                 $query .= " WHERE ";
-                $count = count($condition);
+                $count = count($conditions);
                 $i = 0;
-                foreach($condition as $k=>$v){
+                foreach($conditions as $k=>$v){
 
                     if($count-1 != $i){
                         $query .= "$k='$v' and ";
@@ -129,12 +129,44 @@
             $query = "INSERT INTO $table ($fields) VALUES ($value)";
 
             $result = $this->prep_and_run($query);
-            print_r($result);;
+            print_r($result);
+
+        }
+
+        function updateData($table, $values, $conditions){
+
+            $query = "UPDATE $table SET ";
+            $count = count($values);
+            $i = 0;
+            foreach($values as $k=>$v){
+
+                if($count-1 != $i){
+                    $query .= "$k='$v',";
+                }
+                else{
+                    $query .= "$k='$v' ";
+                }
+                $i++;    
+            }
+            $query .= " WHERE ";
+            $count = count($conditions);
+            $i = 0;
+            foreach($conditions as $k=>$v){
+
+                if($count-1 != $i){
+                    $query .= "$k='$v' and ";
+                }
+                else{
+                    $query .= "$k='$v' ";
+                }
+                $i++;    
+            } 
+            $result = $this->prep_and_run($query);
+            print_r($result);
+
         }
 
     }
-
-
 
 
 
