@@ -111,7 +111,7 @@
             }
 
             $result = $this->prep_and_run($query);
-            print_r($result);
+            //print_r($result);
         }
 
         public function addData($table, $values){
@@ -129,10 +129,12 @@
             $query = "INSERT INTO $table ($fields) VALUES ($value)";
 
             $result = $this->prep_and_run($query);
-            print_r($result);
+            //print_r($result);
 
         }
 
+        //Function to Update Data
+        //UPDATE $table SET $values[$K]=$values[$v] WHERE $conditions 
         function updateData($table, $values, $conditions){
 
             $query = "UPDATE $table SET ";
@@ -162,7 +164,7 @@
                 $i++;    
             } 
             $result = $this->prep_and_run($query);
-            print_r($result);
+            //print_r($result);
 
         }
 
