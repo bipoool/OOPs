@@ -10,10 +10,24 @@
     //$query->updateData("Users", array("Name"=>"Raman Bansal"), array("Name"=>"Raman Bansal", "Age" => 9));
 
     $form = new form();
-    $form->addTextField(array("name"=>"userName", "placeholder" => "username", "value"=>"vip3022", "class"=>"form-control"), "UserName",array("class"=>"label-lg"));
-    // $form->addPasswordField(array("name"=>"password", "placeholder" => "Password", "class"=>"form-control"), "Password", array("class"=>"label-lg"));
+
+    $form->addTextField(array("name"=>"userName", "placeholder" => "username","class"=>"form-control"), "UserName",array("class"=>"label-lg"));
+    $form->addPasswordField(array("name"=>"password", "placeholder" => "Password", "class"=>"form-control"), "Password", array("class"=>"label-lg"));
+    $form->addEmailField(array("name"=>"email", "class"=>"form-control"), "Email", array("class"=>"label-lg"));
+    $form->addTextAreaField(array("name"=>"area", "class"=>"form-control"), "Area", array("class"=>"label-lg"));
+    $form->addRadioField(array("name"=>"radio", "id"=>"1", "class"=>"form-control", "value"=>"1"), "radio 2", array("class"=>"label-lg"));
+    $form->addRadioField(array("name"=>"radio", "id"=>"2", "class"=>"form-control", "value"=>"2"), "radio 1", array("class"=>"label-lg"));
+    $form->addCheckBoxField(array("name"=>"check1", "value"=>"yes","class"=>""), "check", array("class"=>"label-lg"));
+    $form->addDateField(array("name"=>"date","class"=>"form-control"), "Date", array("class"=>"label-lg"));
+    $form->addTimeField(array("name"=>"time","class"=>"form-control"), "Date", array("class"=>"label-lg"));
+    
+  
     $form->addSubmitButton(array("name"=>"submit", "class"=>"btn btn-success"), "", array("class"=>"label-lg"));
-    print_r($form->validate());
+
+
+    $data = $form->validate();
+    print_r($data);
+
 
 ?>
 

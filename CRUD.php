@@ -286,7 +286,7 @@
         public function validated(){
 
             $data = $_POST[$this->fieldName];
-            $pattern = "/^[a-zA-Z0-9]*$/";
+            $pattern = "/^[a-zA-Z0-9@\.]*$/";
             if(!preg_match($pattern, $data)){
                 $_POST[$this->fieldName] = "data is Currupted...";
                 return false;
@@ -315,6 +315,12 @@
             $this->script = array("labelScript"=>$labelScript, "fieldScript"=>$fieldScript);
                 
         }
+        //No need to validate
+        public function validated(){
+
+            return true;
+            
+        }
 
         public function getFieldName(){
             return $this->fieldName;
@@ -335,6 +341,12 @@
             $this->fieldName = $fieldAttr["name"]; 
             $this->script = array("labelScript"=>$labelScript, "fieldScript"=>$fieldScript);
                 
+        }
+        //No need to validate
+        public function validated(){
+
+            return true;
+            
         }
         
         public function getFieldName(){
@@ -357,6 +369,12 @@
             $this->script = array("labelScript"=>$labelScript, "fieldScript"=>$fieldScript);
                 
         }
+        //No need to validate
+        public function validated(){
+
+            return true;
+            
+        }
 
         public function getFieldName(){
             return $this->fieldName;
@@ -373,10 +391,17 @@
         function __construct($fieldAttr = array(), $label = "", $labelAttr = array()){
             
             $labelScript = $this->makeLabel($label, $labelAttr);
-            $fieldScript = $this->makeField("text", $fieldAttr);
-            $this->fieldName = $fieldAttr["name"]; 
+            $fieldScript = $this->makeField("radio", $fieldAttr);
+            $this->fieldName = $fieldAttr["id"]; 
             $this->script = array("labelScript"=>$labelScript, "fieldScript"=>$fieldScript);
                 
+        }
+
+        //No need to validate
+        public function validated(){
+
+            return true;
+            
         }
 
         public function getFieldName(){
@@ -529,6 +554,7 @@
             }
             $this->script .= $labelScript . $fieldScript;
             $this->fieldsArray[$fieldAttr["id"]] = $field;
+            $this->fieldsError[$fieldAttr["id"]] = "";
         }
 
         public function addTextAreaField($fieldAttr = array(), $label = "", $labelAttr = array()){
@@ -551,13 +577,14 @@
 
             $result = array();
             if(isset($_POST[$this->submitButtonName])){
+
                 foreach($this->fieldsArray as $field){
-                    $fieldName = $field->getFieldName();
-                    if($_POST[$fieldName]==""){
+
+                    if(!$_POST[$field->getFieldName()]){
                         $fieldName = $field->getFieldName();
                         $this->fieldsError[$fieldName] = "Field Is Empty";
                     }
-                    if($field->validated()){
+                    elseif($field->validated()){
                         $fieldName = $field->getFieldName();
                         $result[$fieldName] = $_POST[$fieldName]; 
                     }
