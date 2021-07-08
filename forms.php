@@ -62,7 +62,7 @@ function __construct($fieldAttr = array(), $label = "", $labelAttr = array()){
 public function validated(){
 
     $data = $_POST[$this->fieldName];
-    $pattern = "/^[a-zA-Z0-9]*$/";
+    $pattern = "/^[a-zA-Z0-9@\.\s]*$/";
     if(!preg_match($pattern, $data)){
         $_POST[$this->fieldName] = "data is Currupted...";
         return false;
@@ -100,7 +100,7 @@ function __construct($fieldAttr = array(), $label = "", $labelAttr = array()){
 public function validated(){
 
     $data = $_POST[$this->fieldName];
-    $pattern = "/^[a-zA-Z0-9]*$/";
+    $pattern = "/^[a-zA-Z0-9@\.\w]*$/";
     if(!preg_match($pattern, $data)){
         $_POST[$this->fieldName] = "data is Currupted...";
         return false;
@@ -503,6 +503,9 @@ public function validate(){
                 $result[$fieldName] = "data is currupted";
                 $this->fieldsError[$fieldName] = "Data is not valid";
             }
+            if($this->fieldsError[$fieldName]){
+                return false;
+            }
         }
         
     }
@@ -519,6 +522,10 @@ public function getLabel($name_or_id_if_radioButton){
 
     return $this->labels[$name_or_id_if_radioButton];
 
+}
+
+public function getSubmitButtonName(){
+    return $this->submitButtonName;
 }
 
 public function render_as_p(){

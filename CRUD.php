@@ -56,6 +56,15 @@
 
         }
 
+        //Function to describe the table
+        //SELECT $field FROM $table where $condition $order_by_field $order_by_type $limit
+        public function descTable($table){
+
+            $query = "DESC $table";
+            return $this->prep_and_run($query);
+
+        }
+
         //Function to get data(all parametrized)
         //SELECT $field FROM $table where $condition $order_by_field $order_by_type $limit 
         public function getData($table, $field = "*", $conditions = array(), $order_by_field = "", $order_by_type = "DESC", $limit = ""){
