@@ -1,6 +1,6 @@
 <?php
 
-    include("CRUD.php");
+    include("test.php");
 
     $query = new query();
 
